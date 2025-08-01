@@ -17,14 +17,14 @@ export class AuthController {
     private readonly bcryptService: BcryptService,
   ) {}
 
-  @ApiOperation({ summary: 'Registrar nuevo usuario' })
+  @ApiOperation({ summary: 'Register new user' })
   @ApiBody({ type: UserSignUpDto })
-  @ApiResponse({ status: 201, description: 'Usuario registrado correctamente (sin mostrar isAdmin ni password)' })
-  @ApiResponse({ status: 400, description: 'Contraseñas no coinciden o datos inválidos' })
+  @ApiResponse({ status: 201, description: 'User registered successfully (without showing isAdmin or password)' })
+  @ApiResponse({ status: 400, description: 'Passwords do not match or invalid data' })
   @HttpCode(201)
   @Post('signup')
   async signUp(@Body() user: UserSignUpDto): Promise<Omit<User, 'isAdmin' | 'password'>> {
-    if (user.password !== user.confirmPassword) throw new BadRequestException('Contraseñas diferentes ');
+    if (user.password !== user.confirmPassword) throw new BadRequestException('Passwords do not match');
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { confirmPassword, ...rest } = user;
@@ -33,10 +33,10 @@ export class AuthController {
     return await this.usersService.postUsers(userClean);
   }
 
-  @ApiOperation({ summary: 'Iniciar sesión y obtener token' })
+  @ApiOperation({ summary: 'Sign in and get token' })
   @ApiBody({ type: AuthDto })
-  @ApiResponse({ status: 200, description: 'Inicio de sesión exitoso, se retorna access_token' })
-  @ApiResponse({ status: 401, description: 'Credenciales inválidas' })
+  @ApiResponse({ status: 200, description: 'Successful login, returns access_token' })
+  @ApiResponse({ status: 401, description: 'Invalid credentials' })
   @HttpCode(200)
   @Post('signin')
   async signIn(@Body() authDto: AuthDto): Promise<{ access_token: string }> {

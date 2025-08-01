@@ -16,11 +16,11 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'Obtener todos los usuarios (solo Admin)(requiere autenticación)' })
+  @ApiOperation({ summary: 'Get all users (Admin only)(requires authentication)' })
   @ApiQuery({ name: 'page', required: false, example: 1 })
   @ApiQuery({ name: 'limit', required: false, example: 10 })
-  @ApiResponse({ status: 200, description: 'Lista de usuarios devuelta correctamente' })
-  @ApiResponse({ status: 401, description: 'No autorizado' })
+  @ApiResponse({ status: 200, description: 'User list returned successfully' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   @HttpCode(200)
   @Get()
   @Roles(Role.Admin)
@@ -30,17 +30,17 @@ export class UsersController {
   }
 
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'Obtener un usuario por su ID (solo el mismo usuario)(requiere autenticación)' })
-  @ApiParam({ name: 'id', description: 'ID del usuario', example: 'uuid-válido' })
-  @ApiResponse({ status: 200, description: 'Usuario encontrado correctamente' })
-  @ApiResponse({ status: 401, description: 'No autorizado' })
-  @ApiResponse({ status: 404, description: 'Usuario no encontrado' })
+  @ApiOperation({ summary: 'Get a user by their ID (same user only)(requires authentication)' })
+  @ApiParam({ name: 'id', description: 'User ID', example: 'valid-uuid' })
+  @ApiResponse({ status: 200, description: 'User found successfully' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 404, description: 'User not found' })
   @HttpCode(200)
   @Get(':id')
   @UseGuards(AuthGuard)
   async getUsersById(@Param('id', ParseUUIDPipe) id: string, @Req() req: Request): Promise<User> {
     const userFromToken = req['user'];
-    if (userFromToken.id !== id && !(userFromToken.roles[0] === Role.Admin)) throw new UnauthorizedException('No tienes permiso para ver este usuario');
+    if (userFromToken.id !== id && !(userFromToken.roles[0] === Role.Admin)) throw new UnauthorizedException('You do not have permission to view this user');
     const user: User = await this.usersService.getUsersById(id);
     return user;
   }
@@ -52,33 +52,33 @@ export class UsersController {
   // }
 
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'Actualizar un usuario existente por ID(solo el mismo usuario)(requiere autenticación)' })
-  @ApiParam({ name: 'id', description: 'ID del usuario', example: 'uuid-válido' })
+  @ApiOperation({ summary: 'Update an existing user by ID(same user only)(requires authentication)' })
+  @ApiParam({ name: 'id', description: 'User ID', example: 'valid-uuid' })
   @ApiBody({ type: UserDto })
-  @ApiResponse({ status: 200, description: 'Usuario actualizado correctamente' })
-  @ApiResponse({ status: 401, description: 'No autorizado' })
-  @ApiResponse({ status: 404, description: 'Usuario no encontrado' })
+  @ApiResponse({ status: 200, description: 'User updated successfully' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 404, description: 'User not found' })
   @HttpCode(200)
   @Put(':id')
   @UseGuards(AuthGuard)
   async updateUsersById(@Param('id', ParseUUIDPipe) id: string, @Body() user: UserDto, @Req() req: Request): Promise<string> {
     const userFromToken = req['user'];
-    if (userFromToken.id !== id && !(userFromToken.roles[0] === Role.Admin)) throw new UnauthorizedException('No tienes permiso para modificar este usuario');
+    if (userFromToken.id !== id && !(userFromToken.roles[0] === Role.Admin)) throw new UnauthorizedException('You do not have permission to modify this user');
     return await this.usersService.putUsers(id, user);
   }
 
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'Eliminar un usuario por ID(solo el mismo usuario)(requiere autenticación)' })
-  @ApiParam({ name: 'id', description: 'ID del usuario', example: 'uuid-válido' })
-  @ApiResponse({ status: 200, description: 'Usuario eliminado correctamente' })
-  @ApiResponse({ status: 401, description: 'No autorizado' })
-  @ApiResponse({ status: 404, description: 'Usuario no encontrado' })
+  @ApiOperation({ summary: 'Delete a user by ID(same user only)(requires authentication)' })
+  @ApiParam({ name: 'id', description: 'User ID', example: 'valid-uuid' })
+  @ApiResponse({ status: 200, description: 'User deleted successfully' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 404, description: 'User not found' })
   @HttpCode(200)
   @Delete(':id')
   @UseGuards(AuthGuard)
   async deleteUsersById(@Param('id', ParseUUIDPipe) id: string, @Req() req: Request): Promise<string> {
     const userFromToken = req['user'];
-    if (userFromToken.id !== id && !(userFromToken.roles[0] === Role.Admin)) throw new UnauthorizedException('No tienes permiso para eliminar este usuario');
+    if (userFromToken.id !== id && !(userFromToken.roles[0] === Role.Admin)) throw new UnauthorizedException('You do not have permission to delete this user');
     return await this.usersService.deleteUsers(id);
   }
 }

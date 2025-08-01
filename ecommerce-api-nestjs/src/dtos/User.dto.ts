@@ -3,81 +3,81 @@ import { Type } from 'class-transformer';
 import { IsEmail, IsNotEmpty, IsNumber, IsString, Length, Matches } from 'class-validator';
 
 export class UserDto {
-  @IsEmail({}, { message: 'El correo electrónico no tiene un formato válido.' })
-  @IsNotEmpty({ message: 'El correo electrónico es obligatorio.' })
-  @ApiProperty({ description: 'El correo electrónico debe tener un formato válido.', example: 'Example@example.com' })
+  @IsEmail({}, { message: 'Email does not have a valid format.' })
+  @IsNotEmpty({ message: 'Email is required.' })
+  @ApiProperty({ description: 'Email must have a valid format.', example: 'Example@example.com' })
   email: string;
 
-  @IsString({ message: 'El nombre debe ser una cadena de texto.' })
-  @IsNotEmpty({ message: 'El nombre es obligatorio.' })
+  @IsString({ message: 'Name must be a string.' })
+  @IsNotEmpty({ message: 'Name is required.' })
   @Length(3, 80, {
-    message: 'El nombre debe tener entre 3 y 80 caracteres.',
+    message: 'Name must be between 3 and 80 characters.',
   })
   @ApiProperty({
-    description: 'Nombre completo del usuario.',
-    example: 'Juan Pérez',
+    description: 'User full name.',
+    example: 'John Doe',
     minLength: 3,
     maxLength: 80,
   })
   name: string;
 
-  @IsString({ message: 'La contraseña debe ser una cadena de texto.' })
-  @IsNotEmpty({ message: 'La contraseña es obligatoria.' })
+  @IsString({ message: 'Password must be a string.' })
+  @IsNotEmpty({ message: 'Password is required.' })
   @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,15}$/, {
-    message: 'La contraseña debe tener entre 8 y 15 caracteres, incluyendo una minúscula, una mayúscula, un número y un carácter especial (!@#$%^&*).',
+    message: 'Password must be between 8 and 15 characters, including a lowercase letter, an uppercase letter, a number and a special character (!@#$%^&*).',
   })
   @ApiProperty({
-    description: 'Contraseña del usuario. Debe contener entre 8 y 15 caracteres, incluyendo mayúsculas, minúsculas, números y caracteres especiales (!@#$%^&*).',
+    description: 'User password. Must contain between 8 and 15 characters, including uppercase, lowercase, numbers and special characters (!@#$%^&*).',
     example: 'Password123!',
     minLength: 8,
     maxLength: 15,
   })
   password: string;
 
-  @IsString({ message: 'La dirección debe ser una cadena de texto.' })
-  @IsNotEmpty({ message: 'La dirección es obligatoria.' })
+  @IsString({ message: 'Address must be a string.' })
+  @IsNotEmpty({ message: 'Address is required.' })
   @Length(3, 80, {
-    message: 'La dirección debe tener entre 3 y 80 caracteres.',
+    message: 'Address must be between 3 and 80 characters.',
   })
   @ApiProperty({
-    description: 'Dirección física del usuario.',
-    example: 'Av. Siempre Viva 742',
+    description: 'User physical address.',
+    example: '123 Main St',
     minLength: 3,
     maxLength: 80,
   })
   address: string;
 
   @Type(() => Number)
-  @IsNumber({}, { message: 'El teléfono debe ser un número.' })
-  @IsNotEmpty({ message: 'El teléfono es obligatorio.' })
+  @IsNumber({}, { message: 'Phone must be a number.' })
+  @IsNotEmpty({ message: 'Phone is required.' })
   @ApiProperty({
-    description: 'Número de teléfono del usuario. Debe ser numérico.',
-    example: 3811234567,
+    description: 'User phone number. Must be numeric.',
+    example: 1234567890,
     type: Number,
   })
   phone: number;
 
-  @IsString({ message: 'El país debe ser una cadena de texto.' })
-  @IsNotEmpty({ message: 'El país es obligatorio.' })
+  @IsString({ message: 'Country must be a string.' })
+  @IsNotEmpty({ message: 'Country is required.' })
   @Length(5, 20, {
-    message: 'El país debe tener entre 5 y 20 caracteres.',
+    message: 'Country must be between 5 and 20 characters.',
   })
   @ApiProperty({
-    description: 'País de residencia del usuario.',
-    example: 'Argentina',
+    description: 'User country of residence.',
+    example: 'United States',
     minLength: 5,
     maxLength: 20,
   })
   country: string;
 
-  @IsString({ message: 'La ciudad debe ser una cadena de texto.' })
-  @IsNotEmpty({ message: 'La ciudad es obligatoria.' })
+  @IsString({ message: 'City must be a string.' })
+  @IsNotEmpty({ message: 'City is required.' })
   @Length(5, 20, {
-    message: 'La ciudad debe tener entre 5 y 20 caracteres.',
+    message: 'City must be between 5 and 20 characters.',
   })
   @ApiProperty({
-    description: 'Ciudad de residencia del usuario.',
-    example: 'Buenos Aires',
+    description: 'User city of residence.',
+    example: 'New York',
     minLength: 5,
     maxLength: 20,
   })

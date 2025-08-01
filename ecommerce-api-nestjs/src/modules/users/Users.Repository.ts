@@ -16,12 +16,12 @@ export class UsersRepository {
 
   async findUsersById(id: string): Promise<User> {
     const userById: User | null = await this.userRepository.findOne({ where: { id }, relations: { orders: true } });
-    if (!userById) throw new NotFoundException(`Usuario con ID ${id} no encontrado.`);
+    if (!userById) throw new NotFoundException(`User with ID ${id} not found.`);
     return userById;
   }
 
   async createNewUser(user: UserDto): Promise<Omit<User, 'isAdmin' | 'password'>> {
-    if (await this.userRepository.findOneBy({ email: user.email })) throw new BadRequestException('Usuario ya registrado');
+    if (await this.userRepository.findOneBy({ email: user.email })) throw new BadRequestException('User already registered');
     const newUser: User = await this.userRepository.save(this.userRepository.create(user));
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, isAdmin, ...returnUser } = newUser;
@@ -31,14 +31,14 @@ export class UsersRepository {
   async updateUsers(id: string, user: UserDto): Promise<string> {
     await this.userRepository.update(id, user);
     const updateUser: User | null = await this.userRepository.findOneBy({ id });
-    if (!updateUser) throw new NotFoundException(`No se pudo actualizar. Usuario con ID ${id} no existe.`);
+    if (!updateUser) throw new NotFoundException(`Could not update. User with ID ${id} does not exist.`);
 
     return updateUser.id;
   }
 
   async deleteUsers(id: string): Promise<string> {
     const user: User | null = await this.userRepository.findOneBy({ id });
-    if (!user) throw new NotFoundException(`No se pudo eliminar. Usuario con ID ${id} no encontrado.`);
+    if (!user) throw new NotFoundException(`Could not delete. User with ID ${id} not found.`);
 
     await this.userRepository.remove(user);
     return user.id;

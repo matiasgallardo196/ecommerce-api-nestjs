@@ -15,7 +15,7 @@ export class AuthService {
 
   async signIn({ email, password }: AuthDto): Promise<string> {
     const user = await this.usersRepository.findByEmail(email);
-    if (!user || !(await this.bcryptService.compare(password, user.password))) throw new UnauthorizedException('Email o password incorrectos');
+    if (!user || !(await this.bcryptService.compare(password, user.password))) throw new UnauthorizedException('Email or password incorrect');
 
     const userPayload = {
       id: user.id,

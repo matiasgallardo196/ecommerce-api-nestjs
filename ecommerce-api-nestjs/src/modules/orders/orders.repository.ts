@@ -27,13 +27,13 @@ export class OrdersRepository {
     try {
       const user: User | null = await queryRunner.manager.findOneBy(User, { id: ordersDto.userId });
 
-      if (!user) throw new NotFoundException('Usuario no encontrado');
+      if (!user) throw new NotFoundException('User not found');
 
       const newProducts: (Product | null)[] = await Promise.all(ordersDto.products.map((prod) => queryRunner.manager.findOneBy(Product, { id: prod.id })));
 
       const productValid = newProducts.filter((prod): prod is Product => !!prod && prod.stock > 0);
 
-      if (productValid.length !== ordersDto.products.length) throw new BadRequestException('Uno o más productos no fueron encontrados o no tienen stock');
+      if (productValid.length !== ordersDto.products.length) throw new BadRequestException('One or more products were not found or do not have stock');
 
       const totalPrice = productValid.reduce((acu, prod) => acu + Number(prod.price), 0);
 
@@ -68,7 +68,7 @@ export class OrdersRepository {
 
   async getOrder(id: string): Promise<Order> {
     const order: Order | null = await this.orderRepository.findOne({ where: { id }, relations: ['orderDetail', 'orderDetail.products'] });
-    if (!order) throw new NotFoundException(`No se encontró una orden con el ID: ${id}`);
+    if (!order) throw new NotFoundException(`No order found with ID: ${id}`);
     return order;
   }
 }

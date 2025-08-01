@@ -7,7 +7,7 @@ import { CategoryModule } from './modules/categories/categories.module';
 import { OrdersModule } from './modules/orders/orders.module';
 
 import { CloudinaryModule } from './modules/cloudinary/cloudinary.module';
-//import { OrderDetail } from './entities/orderDetail.entity'; ////////////////chequear esto si va
+//import { OrderDetail } from './entities/orderDetail.entity'; ////////////////check if this is needed
 
 @Module({
   imports: [DatabaseModule, AuthModule, ProductsModule, UsersModule, CategoryModule, OrdersModule /*, OrderDetail*/, CloudinaryModule],

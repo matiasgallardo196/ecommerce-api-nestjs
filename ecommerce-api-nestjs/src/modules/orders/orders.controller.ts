@@ -13,23 +13,23 @@ import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } 
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
-  @ApiOperation({ summary: 'Crear una nueva orden (requiere autenticación)' })
+  @ApiOperation({ summary: 'Create a new order (requires authentication)' })
   @ApiBody({ type: OrdersDto })
-  @ApiResponse({ status: 200, description: 'Orden creada correctamente' })
-  @ApiResponse({ status: 400, description: 'Uno o más productos no fueron encontrados o no tienen stock' })
-  @ApiResponse({ status: 401, description: 'No autorizado' })
-  @ApiResponse({ status: 404, description: 'Usuario no encontrado' })
+  @ApiResponse({ status: 200, description: 'Order created successfully' })
+  @ApiResponse({ status: 400, description: 'One or more products were not found or do not have stock' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 404, description: 'User not found' })
   @HttpCode(200)
   @Post()
   async addOrder(@Body() ordersDto: OrdersDto): Promise<OrderResponseDto> {
     return await this.ordersService.addOrder(ordersDto);
   }
 
-  @ApiOperation({ summary: 'Obtener una orden por ID (requiere autenticación)' })
-  @ApiParam({ name: 'id', description: 'ID de la orden', example: 'uuid-válido' })
-  @ApiResponse({ status: 200, description: 'Orden obtenida correctamente' })
-  @ApiResponse({ status: 401, description: 'No autorizado' })
-  @ApiResponse({ status: 404, description: 'Orden no encontrada' })
+  @ApiOperation({ summary: 'Get an order by ID (requires authentication)' })
+  @ApiParam({ name: 'id', description: 'Order ID', example: 'valid-uuid' })
+  @ApiResponse({ status: 200, description: 'Order retrieved successfully' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 404, description: 'Order not found' })
   @HttpCode(200)
   @Get(':id')
   async getOrder(@Param('id', ParseUUIDPipe) id: string): Promise<Order> {

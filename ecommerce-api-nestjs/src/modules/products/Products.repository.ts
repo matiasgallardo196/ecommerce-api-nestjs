@@ -6,7 +6,7 @@ import { Repository } from 'typeorm';
 import { Category } from 'src/entities/category.entity';
 import { UpdateProductDto } from 'src/dtos/productUpdate.dto';
 
-const archivo = [
+const file: Array<{ name: string; description: string; price: number; stock: number; category: string }> = [
   {
     name: 'Iphone 15',
     description: 'The best smartphone in the world',
@@ -91,7 +91,7 @@ const archivo = [
     stock: 12,
     category: 'mouse',
   },
-]; //archivo
+]; //file
 
 @Injectable()
 export class ProductsRepository {
@@ -230,13 +230,13 @@ export class ProductsRepository {
 
   async findProductsById(id: string): Promise<Product> {
     const productById: Product | null = await this.productRepository.findOneBy({ id });
-    if (!productById) throw new NotFoundException(`Producto con ID ${id} no encontrado.`);
+    if (!productById) throw new NotFoundException(`Product with ID ${id} not found.`);
     return productById;
   }
 
   async createNewProduct(product: ProductsDto): Promise<string> {
     const category = await this.categoryRepository.findOneBy({ name: product.categoryName });
-    if (!category) throw new BadRequestException(`Categoría "${product.categoryName}" no encontrada.`);
+    if (!category) throw new BadRequestException(`Category "${product.categoryName}" not found.`);
     const { categoryName, ...productData } = product;
 
     const newProduct: Product = await this.productRepository.save(this.productRepository.create({ ...productData, category }));
@@ -246,14 +246,14 @@ export class ProductsRepository {
   async updateProduct(id: string, product: UpdateProductDto): Promise<string> {
     await this.productRepository.update(id, product);
     const updateProduct: Product | null = await this.productRepository.findOneBy({ id });
-    if (!updateProduct) throw new NotFoundException(`No se pudo actualizar. Producto con ID ${id} no existe.`);
+    if (!updateProduct) throw new NotFoundException(`Could not update. Product with ID ${id} does not exist.`);
 
     return updateProduct.id;
   }
 
   async deleteProduct(id: string): Promise<string> {
     const product: Product | null = await this.productRepository.findOneBy({ id });
-    if (!product) throw new NotFoundException(`No se pudo eliminar. Producto con ID ${id} no encontrado.`);
+    if (!product) throw new NotFoundException(`Could not delete. Product with ID ${id} not found.`);
 
     await this.productRepository.remove(product);
     return product.id;
@@ -262,12 +262,12 @@ export class ProductsRepository {
   async addProductSeed(): Promise<void> {
     const newProducts: Product[] = [];
 
-    for (const prod of archivo) {
+    for (const prod of file) {
       const category = await this.productRepository.manager.getRepository(Category).findOneBy({ name: prod.category });
 
       if (!category) {
-        console.log(` Categoría no encontrada: ${prod.category}`);
-        throw new BadRequestException(`Categoría "${prod.category}" no encontrada.`);
+        console.log(` Category not found: ${prod.category}`);
+        throw new BadRequestException(`Category "${prod.category}" not found.`);
       }
       const newProduct = this.productRepository.create({
         ...prod,
@@ -277,6 +277,6 @@ export class ProductsRepository {
       newProducts.push(newProduct);
     }
     await this.productRepository.save(newProducts);
-    console.log(`Productos agregados: ${newProducts.length}`);
+    console.log(`Products added: ${newProducts.length}`);
   }
 }

@@ -5,10 +5,10 @@ import { ApiPropertyOptional } from '@nestjs/swagger';
 export class PaginationDto {
   @IsOptional()
   @Type(() => Number)
-  @IsNumber({}, { message: 'El número de página debe ser un número válido.' })
-  @Min(1, { message: 'La página mínima permitida es 1.' })
+  @IsNumber({}, { message: 'Page number must be a valid number.' })
+  @Min(1, { message: 'Minimum page allowed is 1.' })
   @ApiPropertyOptional({
-    description: 'Número de página (empezando desde 1)',
+    description: 'Page number (starting from 1)',
     example: 1,
     minimum: 1,
   })
@@ -16,10 +16,10 @@ export class PaginationDto {
 
   @IsOptional()
   @Type(() => Number)
-  @IsNumber({}, { message: 'El límite debe ser un número válido.' })
-  @Min(1, { message: 'El límite mínimo permitido es 1.' })
+  @IsNumber({}, { message: 'Limit must be a valid number.' })
+  @Min(1, { message: 'Minimum limit allowed is 1.' })
   @ApiPropertyOptional({
-    description: 'Cantidad máxima de elementos por página',
+    description: 'Maximum number of elements per page',
     example: 10,
     minimum: 1,
   })

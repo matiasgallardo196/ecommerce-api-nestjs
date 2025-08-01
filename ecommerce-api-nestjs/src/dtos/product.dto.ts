@@ -3,58 +3,58 @@ import { Type } from 'class-transformer';
 import { IsNotEmpty, IsNumber, IsString, IsUrl, Min } from 'class-validator';
 
 export class ProductsDto {
-  @IsString({ message: 'El nombre del producto debe ser una cadena de texto.' })
-  @IsNotEmpty({ message: 'El nombre del producto es obligatorio.' })
+  @IsString({ message: 'Product name must be a string.' })
+  @IsNotEmpty({ message: 'Product name is required.' })
   @ApiProperty({
-    description: 'Nombre del producto',
-    example: 'Café Premium 500g',
+    description: 'Product name',
+    example: 'Premium Coffee 500g',
   })
   name: string;
 
-  @IsString({ message: 'La descripción debe ser una cadena de texto.' })
-  @IsNotEmpty({ message: 'La descripción es obligatoria.' })
+  @IsString({ message: 'Description must be a string.' })
+  @IsNotEmpty({ message: 'Description is required.' })
   @ApiProperty({
-    description: 'Descripción detallada del producto',
-    example: 'Café de origen colombiano con aroma intenso y sabor balanceado.',
+    description: 'Detailed product description',
+    example: 'Colombian origin coffee with intense aroma and balanced flavor.',
   })
   description: string;
 
   @Type(() => Number)
-  @IsNumber({}, { message: 'El precio debe ser un número.' })
-  @Min(0, { message: 'El precio no puede ser negativo.' })
-  @IsNotEmpty({ message: 'El precio es obligatorio.' })
+  @IsNumber({}, { message: 'Price must be a number.' })
+  @Min(0, { message: 'Price cannot be negative.' })
+  @IsNotEmpty({ message: 'Price is required.' })
   @ApiProperty({
-    description: 'Precio del producto en moneda local',
+    description: 'Product price in local currency',
     example: 1999.99,
     minimum: 0,
   })
   price: number;
 
   @Type(() => Number)
-  @IsNumber({}, { message: 'El stock debe ser un número.' })
-  @Min(0, { message: 'El stock no puede ser negativo.' })
-  @IsNotEmpty({ message: 'El stock es obligatorio.' })
+  @IsNumber({}, { message: 'Stock must be a number.' })
+  @Min(0, { message: 'Stock cannot be negative.' })
+  @IsNotEmpty({ message: 'Stock is required.' })
   @ApiProperty({
-    description: 'Cantidad de unidades disponibles',
+    description: 'Available units quantity',
     example: 100,
     minimum: 0,
   })
   stock: number;
 
-  @IsString({ message: 'La imagen debe ser una cadena de texto.' })
-  @IsNotEmpty({ message: 'La URL de la imagen es obligatoria.' })
-  @IsUrl({}, { message: 'La URL de la imagen no es válida.' })
+  @IsString({ message: 'Image must be a string.' })
+  @IsNotEmpty({ message: 'Image URL is required.' })
+  @IsUrl({}, { message: 'Image URL is not valid.' })
   @ApiProperty({
-    description: 'URL de la imagen del producto',
-    example: 'https://ejemplo.com/productos/cafe-premium.jpg',
+    description: 'Product image URL',
+    example: 'https://example.com/products/premium-coffee.jpg',
   })
   imgUrl: string;
 
-  @IsString({ message: 'El nombre de la categoría debe ser una cadena de texto.' })
-  @IsNotEmpty({ message: 'El nombre de la categoría es obligatorio.' })
+  @IsString({ message: 'Category name must be a string.' })
+  @IsNotEmpty({ message: 'Category name is required.' })
   @ApiProperty({
-    description: 'Nombre de la categoría asociada al producto',
-    example: 'Cafés Premium',
+    description: 'Category name associated with the product',
+    example: 'Premium Coffees',
   })
   categoryName: string;
 }

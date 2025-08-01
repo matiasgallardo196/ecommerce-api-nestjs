@@ -16,20 +16,20 @@ import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiQuery, ApiResponse, 
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
-  @ApiOperation({ summary: 'Obtener todos los productos ' })
+  @ApiOperation({ summary: 'Get all products' })
   @ApiQuery({ name: 'page', required: false, example: 1 })
   @ApiQuery({ name: 'limit', required: false, example: 10 })
-  @ApiResponse({ status: 200, description: 'Lista de productos obtenida con éxito' })
+  @ApiResponse({ status: 200, description: 'Product list retrieved successfully' })
   @HttpCode(200)
   @Get()
   async getProducts(@Query() paginationDto: PaginationDto): Promise<Product[]> {
     return await this.productsService.getAllProducts(paginationDto);
   }
 
-  @ApiOperation({ summary: 'Obtener un producto por su ID' })
-  @ApiParam({ name: 'id', description: 'ID del producto', example: 'uuid-válido' })
-  @ApiResponse({ status: 200, description: 'Producto obtenido correctamente' })
-  @ApiResponse({ status: 404, description: 'Producto no encontrado' })
+  @ApiOperation({ summary: 'Get a product by its ID' })
+  @ApiParam({ name: 'id', description: 'Product ID', example: 'valid-uuid' })
+  @ApiResponse({ status: 200, description: 'Product retrieved successfully' })
+  @ApiResponse({ status: 404, description: 'Product not found' })
   @HttpCode(200)
   @Get(':id')
   async getProductsById(@Param('id', ParseUUIDPipe) id: string): Promise<Product> {
@@ -37,11 +37,11 @@ export class ProductsController {
   }
 
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'Crear un nuevo producto (requiere autenticación)' })
+  @ApiOperation({ summary: 'Create a new product (requires authentication)' })
   @ApiBody({ type: ProductsDto })
-  @ApiResponse({ status: 201, description: 'Producto creado correctamente' })
-  @ApiResponse({ status: 400, description: 'Datos inválidos' })
-  @ApiResponse({ status: 401, description: 'No autorizado' })
+  @ApiResponse({ status: 201, description: 'Product created successfully' })
+  @ApiResponse({ status: 400, description: 'Invalid data' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   @HttpCode(201)
   @Post()
   @UseGuards(AuthGuard)
@@ -50,12 +50,12 @@ export class ProductsController {
   }
 
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'Actualizar un producto (solo Admin)(requiere autenticación)' })
-  @ApiParam({ name: 'id', description: 'ID del producto', example: 'uuid-válido' })
+  @ApiOperation({ summary: 'Update a product (Admin only)(requires authentication)' })
+  @ApiParam({ name: 'id', description: 'Product ID', example: 'valid-uuid' })
   @ApiBody({ type: UpdateProductDto })
-  @ApiResponse({ status: 200, description: 'Producto actualizado correctamente' })
-  @ApiResponse({ status: 401, description: 'No autorizado' })
-  @ApiResponse({ status: 404, description: 'Producto no encontrado' })
+  @ApiResponse({ status: 200, description: 'Product updated successfully' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 404, description: 'Product not found' })
   @HttpCode(200)
   @Put(':id')
   @Roles(Role.Admin)
@@ -65,11 +65,11 @@ export class ProductsController {
   }
 
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'Eliminar un producto (requiere autenticación)' })
-  @ApiParam({ name: 'id', description: 'ID del producto', example: 'uuid-válido' })
-  @ApiResponse({ status: 200, description: 'Producto eliminado correctamente' })
-  @ApiResponse({ status: 401, description: 'No autorizado' })
-  @ApiResponse({ status: 404, description: 'Producto no encontrado' })
+  @ApiOperation({ summary: 'Delete a product (requires authentication)' })
+  @ApiParam({ name: 'id', description: 'Product ID', example: 'valid-uuid' })
+  @ApiResponse({ status: 200, description: 'Product deleted successfully' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 404, description: 'Product not found' })
   @HttpCode(200)
   @Delete(':id')
   @UseGuards(AuthGuard)
@@ -78,10 +78,10 @@ export class ProductsController {
   }
 
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'Cargar productos de prueba (requiere autenticación)' })
-  @ApiResponse({ status: 201, description: 'Productos cargados correctamente' })
-  @ApiResponse({ status: 400, description: 'Categoria no encontrada' })
-  @ApiResponse({ status: 401, description: 'No autorizado' })
+  @ApiOperation({ summary: 'Load test products (requires authentication)' })
+  @ApiResponse({ status: 201, description: 'Products loaded successfully' })
+  @ApiResponse({ status: 400, description: 'Category not found' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   @HttpCode(201)
   @Post('seed')
   @UseGuards(AuthGuard)

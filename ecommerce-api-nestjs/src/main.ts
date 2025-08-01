@@ -14,7 +14,7 @@ async function bootstrap() {
     }),
   );
 
-  const swaggerConfig = new DocumentBuilder().setTitle('E-Commerce API').setDescription('Ecommerce API para el M4-Back').setVersion('1.0').addBearerAuth().build();
+  const swaggerConfig = new DocumentBuilder().setTitle('E-Commerce API').setDescription('Ecommerce API for M4-Backend').setVersion('1.0').addBearerAuth().build();
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('api', app, document);
   await app.listen(process.env.PORT ?? 3000);

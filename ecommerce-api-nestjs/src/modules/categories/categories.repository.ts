@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Category } from 'src/entities/category.entity';
 import { Repository } from 'typeorm';
 
-const archivo = [
+const file: Array<{ name: string; description: string; price: number; stock: number; category: string }> = [
   {
     name: 'Iphone 15',
     description: 'The best smartphone in the world',
@@ -88,7 +88,7 @@ const archivo = [
     stock: 12,
     category: 'mouse',
   },
-]; //archivo
+]; //file
 
 @Injectable()
 export class CategoriesRepository {
@@ -108,18 +108,18 @@ export class CategoriesRepository {
     });
     const existingNames = categoriesDB.map((cat) => cat.name);
 
-    const categoriesSeed = [...new Set(archivo.map((product) => product.category))];
+    const categoriesSeed = [...new Set(file.map((product) => product.category))];
 
     const missingCategories: string[] = categoriesSeed.filter((cat) => !existingNames.includes(cat));
 
     if (missingCategories.length === 0) {
-      console.log('No hay nuevas categorías para agregar.');
+      console.log('No new categories to add.');
       return;
     }
 
     const newCategories = missingCategories.map((name) => this.categoryRepository.create({ name }));
 
     await this.categoryRepository.save(newCategories);
-    console.log(`Categorias Agregadas ${missingCategories.join(', ')} `);
+    console.log(`Categories Added ${missingCategories.join(', ')} `);
   }
 }

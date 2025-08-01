@@ -3,19 +3,19 @@ import { Order } from 'src/entities/order.entity';
 
 export class OrderResponseDto {
   @ApiProperty({
-    description: 'Orden creada con sus relaciones cargadas',
+    description: 'Created order with its loaded relationships',
     type: () => Order,
   })
   order: Order;
 
   @ApiProperty({
-    description: 'Precio total de la orden',
+    description: 'Total price of the order',
     example: 2599.99,
   })
   total: number;
 
   @ApiProperty({
-    description: 'ID del detalle de la orden',
+    description: 'Order detail ID',
     example: 'ac12f6e2-8e90-4a1b-bf5c-237fd8f3a6a4',
   })
   idDetail: string;
