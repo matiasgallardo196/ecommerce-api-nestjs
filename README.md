@@ -1,99 +1,105 @@
-# 🛒 E-Commerce API - Matías Gallardo
+# 🛒 E-Commerce API - NestJS
 
-## 📋 Description
+E-commerce API developed with NestJS, TypeORM and PostgreSQL.
 
-RESTful API developed with **NestJS** for a complete e-commerce system. This application provides functionalities for user management, products, categories, orders and authentication, with Cloudinary integration for image handling.
+## 🚀 Technologies
 
-## 🚀 Main Features
+- **Backend**: NestJS 11
+- **Database**: PostgreSQL with TypeORM
+- **Authentication**: JWT + bcrypt
+- **Documentation**: Swagger
+- **Storage**: Cloudinary
+- **Validation**: class-validator
 
-- **JWT Authentication** with user and admin roles
-- **Complete product management** with categories
-- **Order system** with purchase details
-- **Image upload** integrated with Cloudinary
-- **PostgreSQL database** with TypeORM
-- **Automatic documentation** with Swagger
-- **Data validation** with class-validator
-- **Password encryption** with bcrypt
-- **Complete dockerization** of the project
-- **Request logging** with custom middleware
+## 📋 Features
 
-## 🛠️ Quick Start
+### Users
 
-### Prerequisites
+- User registration and login
+- User roles (admin/user)
+- Profile with personal information (name, email, phone, address)
 
-- Node.js 22.13.0 or higher
-- PostgreSQL
-- Docker and Docker Compose (optional)
+### Products
 
-### Installation
+- Product CRUD operations
+- Product categorization
+- Stock management
+- Product images (Cloudinary)
 
-1. **Clone and install**
+### Categories
+
+- Product category management
+
+### Orders
+
+- Order creation and management
+- Order details with products
+
+## 🛠️ Installation
+
+1. **Clone the repository**
 
 ```bash
 git clone <repository-url>
 cd ecommerce-api-nestjs
+```
+
+2. **Install dependencies**
+
+```bash
 npm install
 ```
 
-2. **Configure environment**
+3. **Configure environment variables**
+   Create `.env.development` file with:
 
-```bash
-# Create your environment file
-cp .env.example .env.development
-# Edit .env.development with your configuration
+```
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+DB_DATABASE=your_database
+JWT_SECRET=your_jwt_secret
+CLOUDINARY_CLOUD_NAME=your_cloudinary_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
 ```
 
-3. **Run the application**
+4. **Run with Docker**
+
+```bash
+docker-compose up
+```
+
+Or **run locally**
 
 ```bash
 npm run start:dev
 ```
 
-4. **Access API documentation**
+## 📚 API Documentation
 
-```
-http://localhost:3000/api
-```
+Documentation is available at: `http://localhost:3000/api`
 
-## 📚 Documentation
+## 🗄️ Database
 
-- **[Installation Guide](docs/installation.md)** - Detailed setup instructions
-- **[API Endpoints](docs/api-endpoints.md)** - Complete API reference
-- **[Data Model](docs/data-model.md)** - Database schema and relationships
-- **[Project Structure](docs/project-structure.md)** - Code organization
-- **[Development Guide](docs/development.md)** - Technical details and configurations
-- **[Contributing](docs/contributing.md)** - How to contribute to the project
+### Main entities:
 
-## 🐳 Docker
+- **Users**: System users
+- **Products**: Product catalog
+- **Categories**: Product categories
+- **Orders**: Purchase orders
+- **OrderDetails**: Order details
 
-```bash
-# Run with Docker Compose
-docker-compose up --build
+## 🔧 Available Scripts
 
-# Or build and run manually
-docker build . -t ecommerce-docker
-docker run -p 3001:3000 ecommerce-docker
-```
+- `npm run start:dev` - Development with hot reload
+- `npm run build` - Build for production
+- `npm run start:prod` - Run in production
+- `npm run test` - Run tests
+- `npm run migration:run` - Run migrations
+- `npm run migration:generate` - Generate migrations
 
-## 📡 Available Scripts
+## 📝 Author
 
-```bash
-npm run start:dev          # Development mode
-npm run build             # Build for production
-npm run test              # Run tests
-npm run migration:run     # Run database migrations
-```
-
-## 🔐 Authentication
-
-The API uses JWT tokens for authentication. Register a user and get a token to access protected endpoints.
-
-## 📖 API Documentation
-
-Once running, visit `http://localhost:3000/api` for interactive Swagger documentation.
-
----
-
-**Matías Gallardo** - Full Stack Developer
-
-⭐ If this project was useful to you, don't forget to give it a star!
+Matías Gallardo
