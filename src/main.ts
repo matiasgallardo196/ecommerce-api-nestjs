@@ -21,14 +21,15 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('api', app, document);
 
-  const isProduction = process.env.NODE_ENV === 'production';
-  if (isProduction) {
-    await app.listen(port, host);
-    console.log(`Application is running on: https://${host}:${port} produccion,${isProduction}`);
-  } else {
-    await app.listen(port, host);
-    console.log(`Application is running on: http://${host}:${port} local,${isProduction}`);
-  }
+  await app.listen(port, '0.0.0.0');
+  // const isProduction = process.env.NODE_ENV === 'production';
+  // if (isProduction) {
+  //   await app.listen(port, host);
+  //   console.log(`Application is running on: https://${host}:${port} produccion,${isProduction}`);
+  // } else {
+  //   await app.listen(port, host);
+  //   console.log(`Application is running on: http://${host}:${port} local,${isProduction}`);
+  // }
 }
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
