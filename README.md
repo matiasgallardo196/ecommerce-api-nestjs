@@ -11,7 +11,7 @@ E-commerce API developed with NestJS, TypeORM and PostgreSQL.
 - **Storage**: Cloudinary
 - **Validation**: class-validator
 - **Deployment**: Fly.io (Docker + GitHub Actions)
-- **Database Hosting**: PostgreSQL (Unmanaged) on Fly.io
+- **Database Hosting**: Neon (PostgreSQL)
 
 ## 🌐 Live Demo
 
@@ -24,7 +24,7 @@ E-commerce API developed with NestJS, TypeORM and PostgreSQL.
 This project is deployed on **Fly.io** using:
 
 - **Backend**: Docker container with GitHub Actions for CI/CD
-- **Database**: PostgreSQL (Unmanaged) on Fly.io
+- **Database**: Neon (PostgreSQL)
 - **Production URL**: https://ecommerce-api-nestjs.fly.dev
 
 ### Deployment Configuration
@@ -35,6 +35,7 @@ The project includes:
 - `docker-compose.yml` for local development
 - `fly.toml` for Fly.io configuration
 - GitHub Actions for deployment automation
+- Neon PostgreSQL database for production data
 
 ## 📋 Features
 
