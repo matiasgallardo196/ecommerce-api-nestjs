@@ -24,7 +24,7 @@ async function bootstrap() {
   const isProduction = process.env.NODE_ENV === 'production';
   if (isProduction) {
     await app.listen(port, host);
-    console.log(`Application is running on: https://${host}:${port}`);
+    console.log(`Application is running on: https://${host}:${port} produccion`);
   } else {
     await app.listen(port, host);
     console.log(`Application is running on: http://${host}:${port} local`);
